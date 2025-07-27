@@ -11,6 +11,8 @@
   "asciidoc.debug.trace.desc": "本拡張機能のデバッグログを有効にします。",
   "asciidoc.disableAntoraSupport.title": "Disable Antora support in this workspace",
   "asciidoc.editor.enableDrop.desc": "ドラッグアンドドロップによる画像挿入を有効にします。シフトキーを押しながら、テキストエディタにドラッグアンドドロップしてください。",
+  "asciidoc.editor.pasteImage.filenamePrefix.desc": "クリップボードから画像を貼り付ける際のファイル名のプレフィックス。空の場合、タイムスタンプのみが使用されます。",
+  "asciidoc.editor.pasteImage.directory.desc": "貼り付けられた画像のデフォルトディレクトリ（ドキュメント相対）。空の場合、ドキュメントの `:imagesdir:` 属性を使用します。",
   "asciidoc.editor.title": "エディタ",
   "asciidoc.enableAntoraSupport.title": "Enable Antora support in this workspace",
   "asciidoc.enableErrorDiagnostics.deprecationMessage": "本設定は、`#asciidoc.debug.enableErrorDiagnostics#`に置き換えられ、動作しません。",

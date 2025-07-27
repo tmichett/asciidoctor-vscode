@@ -11,6 +11,8 @@
   "asciidoc.debug.trace.desc": "Enables debug logging for this extension.",
   "asciidoc.disableAntoraSupport.title": "Disable Antora support in this workspace",
   "asciidoc.editor.enableDrop.desc": "Enable drag and drop to insert images. Hold down Shift key to drop file into the text editor.",
+  "asciidoc.editor.pasteImage.filenamePrefix.desc": "Prefix to prepend to image filenames when pasting from clipboard. If empty, only timestamp will be used.",
+  "asciidoc.editor.pasteImage.directory.desc": "Default directory for pasted images relative to document. If empty, uses document's `:imagesdir:` attribute.",
   "asciidoc.editor.title": "Editor",
   "asciidoc.enableAntoraSupport.title": "Enable Antora support in this workspace",
   "asciidoc.enableErrorDiagnostics.deprecationMessage": "This setting has been replaced by `#asciidoc.debug.enableErrorDiagnostics#` and no longer has any effect.",

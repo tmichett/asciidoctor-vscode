@@ -39,6 +39,7 @@ export namespace Import {
 
   export class Configuration {
     ImagesDirectory: string
+    FilenamePrefix: string = ''
 
     selectionRole: SelectionRole = SelectionRole.Filename
     encoding: FilenameEncoding = FilenameEncoding.URIEncoding
@@ -137,8 +138,10 @@ export namespace Import {
       const selection = activeTextEditor.selection
 
       const currentDateString = new Date().toISOString().replace(/[:.]/g, '-')
-      // default filename
-      let filename = `${currentDateString}.png`
+      // default filename with optional prefix
+      let filename = config.FilenamePrefix
+        ? `${config.FilenamePrefix}${currentDateString}.png`
+        : `${currentDateString}.png`
       let altText = '' //todo:...
       const imagesDirectory = config.ImagesDirectory
 

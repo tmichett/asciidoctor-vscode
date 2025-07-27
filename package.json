@@ -283,6 +283,18 @@
             "default": true,
             "markdownDescription": "%asciidoc.editor.enableDrop.desc%",
             "scope": "resource"
+          },
+          "asciidoc.editor.pasteImage.filenamePrefix": {
+            "type": "string",
+            "default": "",
+            "markdownDescription": "%asciidoc.editor.pasteImage.filenamePrefix.desc%",
+            "scope": "resource"
+          },
+          "asciidoc.editor.pasteImage.directory": {
+            "type": "string",
+            "default": "",
+            "markdownDescription": "%asciidoc.editor.pasteImage.directory.desc%",
+            "scope": "resource"
           }
         }
       },
@@ -610,16 +622,18 @@
   },
   "scripts": {
     "copy-fonts:all": "npm run copy-fonts:noto-serif && npm run copy-fonts:open-sans && npm run copy-fonts:roboto-mono",
-    "copy-fonts:noto-serif": "cp -r node_modules/@fontsource/noto-serif/files/noto-serif-all-400-italic.woff media/fonts && cp -r node_modules/@fontsource/noto-serif/files/noto-serif-all-400-normal.woff media/fonts && cp -r node_modules/@fontsource/noto-serif/files/noto-serif-all-700-normal.woff media/fonts && cp -r node_modules/@fontsource/noto-serif/files/noto-serif-all-700-italic.woff media/fonts",
-    "copy-fonts:open-sans": "cp -r node_modules/@fontsource/open-sans/files/open-sans-latin-variable-full-italic.woff2 media/fonts && cp -r node_modules/@fontsource/open-sans/files/open-sans-latin-variable-full-normal.woff2 media/fonts",
-    "copy-fonts:roboto-mono": "cp -r node_modules/@fontsource/roboto-mono/files/roboto-mono-latin-variable-wghtOnly-italic.woff2 media/fonts && cp -r node_modules/@fontsource/roboto-mono/files/roboto-mono-latin-variable-wghtOnly-normal.woff2 media/fonts",
-    "copy-font-awesome": "cp -r node_modules/font-awesome/fonts media/font-awesome && cp -r node_modules/font-awesome/css media/font-awesome",
-    "copy-mathjax": "cp -r node_modules/mathjax media",
-    "copy-mermaid": "cp -r node_modules/mermaid media",
-    "copy-highlightjs": "cp node_modules/@highlightjs/cdn-assets/highlight.min.js media/highlightjs && cp -r node_modules/@highlightjs/cdn-assets/languages media/highlightjs && cp -r node_modules/@highlightjs/cdn-assets/styles media/highlightjs",
+    "copy-fonts:noto-serif": "node -e \"const fs=require('fs'); const path=require('path'); fs.mkdirSync('media/fonts', {recursive:true}); ['noto-serif-all-400-italic.woff','noto-serif-all-400-normal.woff','noto-serif-all-700-normal.woff','noto-serif-all-700-italic.woff'].forEach(f=>fs.copyFileSync(path.join('node_modules/@fontsource/noto-serif/files',f), path.join('media/fonts',f)))\"",
+    "copy-fonts:open-sans": "node -e \"const fs=require('fs'); const path=require('path'); fs.mkdirSync('media/fonts', {recursive:true}); ['open-sans-latin-variable-full-italic.woff2','open-sans-latin-variable-full-normal.woff2'].forEach(f=>fs.copyFileSync(path.join('node_modules/@fontsource/open-sans/files',f), path.join('media/fonts',f)))\"",
+    "copy-fonts:roboto-mono": "node -e \"const fs=require('fs'); const path=require('path'); fs.mkdirSync('media/fonts', {recursive:true}); ['roboto-mono-latin-variable-wghtOnly-italic.woff2','roboto-mono-latin-variable-wghtOnly-normal.woff2'].forEach(f=>fs.copyFileSync(path.join('node_modules/@fontsource/roboto-mono/files',f), path.join('media/fonts',f)))\"",
+    "copy-font-awesome": "node -e \"const fs=require('fs'); function copyDir(src,dest){fs.mkdirSync(dest,{recursive:true}); fs.readdirSync(src,{withFileTypes:true}).forEach(d=>{const s=require('path').join(src,d.name), t=require('path').join(dest,d.name); d.isDirectory()?copyDir(s,t):fs.copyFileSync(s,t)})} copyDir('node_modules/font-awesome/fonts','media/font-awesome/fonts'); copyDir('node_modules/font-awesome/css','media/font-awesome/css')\"",
+    "copy-mathjax": "node -e \"const fs=require('fs'); function copyDir(src,dest){fs.mkdirSync(dest,{recursive:true}); fs.readdirSync(src,{withFileTypes:true}).forEach(d=>{const s=require('path').join(src,d.name), t=require('path').join(dest,d.name); d.isDirectory()?copyDir(s,t):fs.copyFileSync(s,t)})} copyDir('node_modules/mathjax','media/mathjax')\"",
+    "copy-mermaid": "node -e \"const fs=require('fs'); function copyDir(src,dest){fs.mkdirSync(dest,{recursive:true}); fs.readdirSync(src,{withFileTypes:true}).forEach(d=>{const s=require('path').join(src,d.name), t=require('path').join(dest,d.name); d.isDirectory()?copyDir(s,t):fs.copyFileSync(s,t)})} copyDir('node_modules/mermaid','media/mermaid')\"",
+    "copy-highlightjs": "node -e \"const fs=require('fs'); const path=require('path'); function copyDir(src,dest){fs.mkdirSync(dest,{recursive:true}); fs.readdirSync(src,{withFileTypes:true}).forEach(d=>{const s=path.join(src,d.name), t=path.join(dest,d.name); d.isDirectory()?copyDir(s,t):fs.copyFileSync(s,t)})} fs.mkdirSync('media/highlightjs',{recursive:true}); fs.copyFileSync('node_modules/@highlightjs/cdn-assets/highlight.min.js','media/highlightjs/highlight.min.js'); copyDir('node_modules/@highlightjs/cdn-assets/languages','media/highlightjs/languages'); copyDir('node_modules/@highlightjs/cdn-assets/styles','media/highlightjs/styles')\"",
     "copy-assets": "npm run copy-fonts:all && npm run copy-font-awesome && npm run copy-mathjax && npm run copy-mermaid && npm run copy-highlightjs",
     "dev": "npm run build",
     "build": "npm run copy-assets && npm run build-ext && npm run build-preview",
+    "build:clean": "npm run clean && npm run build",
+    "clean": "node -e \"const fs=require('fs'); ['dist','out','media/fonts','media/font-awesome','media/mathjax','media/mermaid','media/highlightjs'].forEach(d=>fs.rmSync(d,{recursive:true,force:true})); fs.readdirSync('.').filter(f=>f.endsWith('.vsix')).forEach(f=>fs.unlinkSync(f))\"",
     "build-web": "webpack --config extension-browser.webpack.config --mode none",
     "build-preview": "webpack --config extension-preview.webpack.config --mode production",
     "build-ext": "tsc -p ./",
@@ -654,6 +668,7 @@
     "mocha-junit-reporter": "2.2.1",
     "mocha-multi-reporters": "1.5.1",
     "path-browserify": "1.0.1",
+    "rimraf": "^6.0.1",
     "semver": "^7.3.7",
     "sinon": "^14.0.1",
     "ts-loader": "9.5.1",

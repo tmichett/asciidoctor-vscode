@@ -11,6 +11,8 @@
   "asciidoc.debug.trace.desc": "Active les traces de debug de cette extension.",
   "asciidoc.disableAntoraSupport.title": "Désactiver le support Antora dans cet espace de travail",
   "asciidoc.editor.enableDrop.desc": "Active le glisser/déposer d'images. Maintenir la touche Shift appuyée afin de déposer un fichier dans l'éditeur de texte.",
+  "asciidoc.editor.pasteImage.filenamePrefix.desc": "Préfixe à ajouter aux noms de fichiers d'images lors du collage depuis le presse-papiers. Si vide, seul l'horodatage sera utilisé.",
+  "asciidoc.editor.pasteImage.directory.desc": "Répertoire par défaut pour les images collées, relatif au document. Si vide, utilise l'attribut `:imagesdir:` du document.",
   "asciidoc.editor.title": "Éditeur",
   "asciidoc.enableAntoraSupport.title": "Activer le support Antora dans cet espace de travail",
   "asciidoc.enableErrorDiagnostics.deprecationMessage": "Ce paramètre a été remplacé par `#asciidoc.debug.enableErrorDiagnostics#` et n'a plus aucun effet.",

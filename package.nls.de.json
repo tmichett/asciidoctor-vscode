@@ -11,6 +11,8 @@
   "asciidoc.debug.trace.desc": "Aktiviert Debug Logging für diese Erweiterung.",
   "asciidoc.disableAntoraSupport.title": "Disable Antora support in this workspace",
   "asciidoc.editor.enableDrop.desc": "Ziehen und Ablegen für Bilder aktivieren. Feststelltaste gedrückt halten um Dateien im Editor abzulegen.",
+  "asciidoc.editor.pasteImage.filenamePrefix.desc": "Präfix für Bilddateinamen beim Einfügen aus der Zwischenablage. Wenn leer, wird nur der Zeitstempel verwendet.",
+  "asciidoc.editor.pasteImage.directory.desc": "Standardverzeichnis für eingefügte Bilder relativ zum Dokument. Wenn leer, wird das `:imagesdir:` Attribut des Dokuments verwendet.",
   "asciidoc.editor.title": "Editor",
   "asciidoc.enableAntoraSupport.title": "Enable Antora support in this workspace",
   "asciidoc.enableErrorDiagnostics.deprecationMessage": "Diese Einstellung wurde durch `#asciidoc.debug.enableErrorDiagnostics#` ersetzt und hat keinen Effekt mehr.",

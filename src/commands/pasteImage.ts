@@ -18,11 +18,35 @@ export class PasteImage implements Command {
         return
       }
       const configuration = new Configuration()
-      configuration.ImagesDirectory = await getCurrentImagesDir(
-        this.asciidocLoader,
-        activeTextEditor.document,
-        activeTextEditor.selection,
+
+      // Read extension settings
+      const editorConfig = vscode.workspace.getConfiguration(
+        'asciidoc.editor',
+        activeTextEditor.document.uri,
       )
+      const settingsImageDir = editorConfig.get<string>(
+        'pasteImage.directory',
+        '',
+      )
+      const settingsFilenamePrefix = editorConfig.get<string>(
+        'pasteImage.filenamePrefix',
+        '',
+      )
+
+      // Use settings directory if provided, otherwise use document's imagesdir
+      if (settingsImageDir) {
+        configuration.ImagesDirectory = settingsImageDir
+      } else {
+        configuration.ImagesDirectory = await getCurrentImagesDir(
+          this.asciidocLoader,
+          activeTextEditor.document,
+          activeTextEditor.selection,
+        )
+      }
+
+      // Set filename prefix from settings
+      configuration.FilenamePrefix = settingsFilenamePrefix
+
       await Import.Image.importFromClipboard(configuration)
     } catch (e) {
       vscode.window.showErrorMessage(e)
